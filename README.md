@@ -1,7 +1,3 @@
 # Kelex
 
-- [ ] Poll Bitrise for builds  
-- [ ] Show builds from Bitrise on frontend
-- [ ] get commit hash of running build vs commit hash of last build that was designated a candidate
-- [ ] Analyze commit messages of commits between hashes from previous step by running regex on commits to find JIRA ticket codes
-- [ ] Create association between Bitrise build and containing
+- [ ] Stepper UI that aggregates a release, shows a list of commits from last build, select tickets from commits, add formatted tickets and descriptions to Bitrise message, trigger bitrise build with release tag and ticket descriptions, create "build" entity

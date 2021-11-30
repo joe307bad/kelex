@@ -7,39 +7,59 @@ import StepContent from '@mui/material/StepContent';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { DesignateFocus } from './DesignateFocus';
+import { CreateCandidate } from './CreateCandidate';
 
-const steps = [
+type Step = {
+  step: 'SELECT_RELEASE' | 'DESIGNATE_FOCUS' | 'CREATE_CANDIDATE';
+  label: string;
+  description: string;
+}
+
+const steps: Step[] = [
   {
+    step: 'SELECT_RELEASE',
     label: 'Select a release to start building a candidate',
     description: `For each ad campaign that you create, you can control how much
               you're willing to spend on clicks and conversions, which networks
               and geographical locations you want your ads to show on, and more.`,
   },
   {
+    step: 'DESIGNATE_FOCUS',
     label: 'Designate a focus for this candidate',
     description: `For each ad campaign that you create, you can control how much
               you're willing to spend on clicks and conversions, which networks
               and geographical locations you want your ads to show on, and more.`,
   },
   {
-    label: 'Assign artifacts to this candidate',
-    description: `For each ad campaign that you create, you can control how much
-              you're willing to spend on clicks and conversions, which networks
-              and geographical locations you want your ads to show on, and more.`,
-  },
-  {
-    label: 'Verify the focus of this candidate',
-    description:
-      'An ad group contains one or more ads which target a shared set of keywords.',
-  },
-  {
-    label: 'Create an ad',
+    step: 'CREATE_CANDIDATE',
+    label: 'Create candidate and kickoff build',
     description: `Try out different ad text to see what brings in the most customers,
               and learn how to enhance your ads using features like ad extensions.
               If you run into any problems with your ads, find out how to tell if
               they're running and how to resolve approval issues.`,
   },
 ];
+
+const SelectRelease = () => {
+  return (
+    <FormControl fullWidth>
+      <InputLabel id="demo-simple-select-label">Release</InputLabel>
+      <Select
+        labelId="demo-simple-select-label"
+        id="demo-simple-select"
+        value={10}
+        label="Age"
+        onChange={() => {}}
+      >
+        <MenuItem value={10}>v7.3.0</MenuItem>
+        <MenuItem value={20}>Twenty</MenuItem>
+        <MenuItem value={30}>Thirty</MenuItem>
+      </Select>
+    </FormControl>
+  )
+}
 
 export const BuildStepper = () => {
   const [activeStep, setActiveStep] = React.useState(0);
@@ -57,21 +77,26 @@ export const BuildStepper = () => {
   };
 
   return (
-    <Box sx={{ maxWidth: 400, padding: 1 }}>
+    <Box sx={{ padding: 1 }}>
       <Stepper activeStep={activeStep} orientation="vertical">
         {steps.map((step, index) => (
           <Step key={step.label}>
-            <StepLabel
-              optional={
-                index === 2 ? (
-                  <Typography variant="caption">Last step</Typography>
-                ) : null
-              }
-            >
+            <StepLabel>
               {step.label}
             </StepLabel>
             <StepContent>
-              <Typography>{step.description}</Typography>
+              {(() => {
+                switch(step.step) {
+                  case 'SELECT_RELEASE':
+                    return <SelectRelease />
+                  case 'DESIGNATE_FOCUS':
+                    return <DesignateFocus />
+                  case 'CREATE_CANDIDATE':
+                    return <CreateCandidate />
+                  default:
+                    return <Typography variant={'h6'}>Cant find</Typography>
+                }
+              })()}
               <Box sx={{ mb: 2 }}>
                 <div>
                   <Button
