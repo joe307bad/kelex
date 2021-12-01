@@ -3,13 +3,22 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { FC } from 'react';
 
-export const CandidateCard: FC<{id: string}> = ({id}) => {
+export const CandidateCard: FC<{id: string; tag?: string;}> = ({id, tag}) => {
   return (
     <Card variant={'outlined'} sx={{ margin: 1 }}>
       <CardContent>
         <Chip label="v7.2.0" style={{marginBottom: 10}} />
-        <Chip color={"primary"} label="Queued" style={{marginLeft: 10, marginBottom: 10}} />
-        <Chip color={"error"} label="Failed" style={{marginLeft: 10, marginBottom: 10}} />
+        {tag === 'primary' && (
+          <Chip color={'success'} label="Promoted" style={{marginLeft: 10, marginBottom: 10}} />
+        )}
+        {Number(id) % 2 !== 0 && tag !== 'primary' && (
+          <>
+            <Chip color={"primary"} label="Queued" style={{marginLeft: 10, marginBottom: 10}} />
+          </>
+        )}
+        {Number(id) % 2 === 0 && tag !== 'primary' && (
+          <Chip color={"error"} label="Failed" style={{marginLeft: 10, marginBottom: 10}} />
+        )}
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           Release Candidate #{id}
         </Typography>

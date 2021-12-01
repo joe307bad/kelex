@@ -10,6 +10,7 @@ import { BuildStepper } from '../components/BuildStepper';
 import { Box, Card, CardActions, CardContent } from '@mui/material';
 import { TreeItem } from '@mui/lab';
 import { CandidateCard } from '../components/CandidateCard';
+import { SharedUi } from '@kelex/shared/ui';
 
 export function App() {
   return (
@@ -33,24 +34,29 @@ export function App() {
       <Box
         sx={{
           display: 'flex',
-          justifyContent: 'center',
           p: 1,
           m: 1,
           bgcolor: 'background.paper',
           height: `calc(100% - 100px)`
         }}
       >
-        <Box  sx={{width: '20%'}} style={{backgroundColor: 'white', justifyContent: 'flex-end', display: 'flex'}}>
+        <Box  sx={{width: '25%'}} style={{backgroundColor: 'white', justifyContent: 'flex-end', display: 'flex'}}>
           <Box style={{width: '100%'}}>
+            <SharedUi />
             <BuildStepper />
           </Box>
         </Box>
-        <Box sx={{width: '15%', overflowY: 'scroll', maxHeight: '100%'}} style={{backgroundColor: 'white'}}>
-            {Array.from(Array(5)).map((v, i) => (
-              <CandidateCard id={i.toString()} key={i} />
-            ))}
+        <Box sx={{width: '25%', overflowY: 'scroll', maxHeight: '100%'}} style={{backgroundColor: 'white'}}>
+          {Array.from(Array(5)).map((v, i) => (
+            <CandidateCard id={i.toString()} key={i} />
+          ))}
         </Box>
-        <Box sx={{width: '20%'}} style={{backgroundColor: 'white'}}>
+        <Box sx={{width: '25%', overflowY: 'scroll', maxHeight: '100%'}} style={{backgroundColor: 'white'}}>
+          {Array.from(Array(2)).map((v, i) => (
+            <CandidateCard tag={'primary'} id={i.toString()} key={i} />
+          ))}
+        </Box>
+        <Box sx={{width: '25%'}} style={{backgroundColor: 'white'}}>
           <TreeView
             aria-label="file system navigator"
             defaultCollapseIcon={<ExpandMoreIcon />}
